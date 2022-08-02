@@ -34,14 +34,13 @@ function handleChange(event){
     allMovies[id].watched = !allMovies[id].watched;
 }
 
-function createMovieUI(){
+function createMovieUI(data, root){
     rootElm.innerHTML = "";
     allMovies.forEach((movie, i) =>{
         let li = document.createElement("li");
-        let input = document.createElement("input");
-        input.type = "checkbox";
+        let input = document.createElement("button");
         input.id = i;
-        input.checked = movie.watched;
+        input.checked = movie.watched? "Watched": "To Watch";
         input.addEventListener("click", handleChange);
         let label = document.createElement("label");
         label.for = i;
