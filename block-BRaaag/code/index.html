@@ -24,57 +24,57 @@
     ></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-      let input = document.querySelector(`input[type="text"]`); 
-let rootElm = document.querySelector(".movie_list");
+        let input = document.querySelector(`input[type="text"]`); 
+        let rootElm = document.querySelector(".movie_list");
 
-let allMovies = [
-    {
-        name: 'Forest Gump',
-        watched: false
-    },
-    {
-        name: 'Inception',
-        watched: false
-    }
-];
+        let allMovies = [
+            {
+                name: 'Forest Gump',
+                watched: false
+            },
+            {
+                name: 'Inception',
+                watched: false
+            }
+        ];
 
-input.addEventListener("keyup", (event) => {
-    if(event.keyCode === 13){
-        allMovies.push({
-            name: event.target.value,
-            watched: false,
+        input.addEventListener("keyup", (event) => {
+            if(event.keyCode === 13){
+                allMovies.push({
+                    name: event.target.value,
+                    watched: false,
+                });
+                event.target.value = "";
+                createMovieUI(allMovies, rootElm);
+            }
         });
-        event.target.value = "";
-        createMovieUI(allMovies, rootElm);
+
+        function deleteMovie(event){
+            let id = event.target.dataset.id;
+            allMovies.splice(id, 1);
+            createMovieUI(allMovies, rootElm);
+        }
+
+        function handleChange(event){
+            let id = event.target.id;
+            allMovies[id].watched = !allMovies[id].watched;
+            createMovieUI(allMovies, rootElm);
+        }
+
+        function createMovieUI(data, root){
+            let movieUI = allMovies.map((movie, i) =>{
+            return (
+                <li key = {movie.name}>
+                    <button id = {i} onClick = {handleChange}>{movie.watched? "Watched": "To Watch"}</button>
+                    <label htmlFor = {i}>{movie.name}</label>
+                    <span data-id = {i} onClick = {deleteMovie}>X</span>  
+                </li>
+            )
+        });
+        ReactDOM.render(movieUI, rootElm);
     }
-});
 
-function deleteMovie(event){
-    let id = event.target.dataset.id;
-    allMovies.splice(id, 1);
-    createMovieUI(allMovies, rootElm);
-}
-
-function handleChange(event){
-    let id = event.target.id;
-    allMovies[id].watched = !allMovies[id].watched;
-    createMovieUI(allMovies, rootElm);
-}
-
-function createMovieUI(data, root){
-    let movieUI = allMovies.map((movie, i) =>{
-        return (
-            <li>
-                <button id = {i} onClick = {handleChange}>{movie.watched? "Watched": "To Watch"}</button>
-                <label for= {i}>{movie.name}</label>
-                <span data-id = {i} onClick = {deleteMovie}>X</span>  
-          </li>
-        )
-    });
-    ReactDOM.render(movieUI, rootElm);
-}
-
-createMovieUI();
+    createMovieUI();
     </script>
   </body>
 </html>
