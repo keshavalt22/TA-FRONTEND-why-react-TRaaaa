@@ -40,6 +40,9 @@ function elm(type, attr = {}, ...childern){
     for(let key in attr){
         if(key.startsWith('data-')){
             element.setAttribute(key, attr[key]);
+        } else if(key.startsWith('on')){
+            let eventType = key.replace('on', '');
+            element.addEventListener(eventType, attr[key]);
         } else{
             element[key] = attr[key];
         }
@@ -62,17 +65,17 @@ function createMovieUI(data, root){
         let li = elm(
             "li",
             {}, elm("button", {
-                id : i
+                id : i,
+                onclick: handleChange
             }, movie.watched? "Watched": "To Watch"), 
             elm("label", {
                 for : i
             }, movie.name), 
             elm("span", {
-                "data-id": i
+                "data-id": i,
+                onclick: deleteMovie
             }, "x")
             );
-        // button.addEventListener("click", handleChange);
-        // span.addEventListener("click", deleteMovie);
         rootElm.append(li);
     })
 }
