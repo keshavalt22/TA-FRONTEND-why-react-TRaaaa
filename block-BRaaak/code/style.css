@@ -56,6 +56,10 @@ body{
     background-color: rgb(242,242,242);
     font-family: 'Noto Sans SC', sans-serif;
 }
+.container{
+    display: flex;
+    justify-content: space-evenly;
+}
 
 .card {
     width: 60%;
