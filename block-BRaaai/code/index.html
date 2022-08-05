@@ -23,27 +23,41 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
+        var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
+        let cardInfo = {
+                title: 'City Lights in New York',
+                date: new Date('2017-01-26'),
+                comments: 67,
+                subTitle: 'The city that never sleeps.',
+                description: 'New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers.',
+                category: 'photos',
+                imageURL:'https://images.unsplash.com/photo-1610874933184-7728fd666162?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
+            };
+        let rootelm = document.getElementById("root");
         let card =(
         <div className = "card">
             <header>
-                <img className = "img" src="https://images.unsplash.com/photo-1610874933184-7728fd666162?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="" />
-                <div className = "date"> <p>27</p> MAR</div>
-                <span className = "category">PHOTOS</span>     
+                <img className = "img" src= {cardInfo.imageURL} alt="iamge" />
+                <div className = "date"> 
+                    <div>{cardInfo.date.getDate()}</div> 
+                    <div>{month[cardInfo.date.getMonth()]}</div>   
+                </div>
+                <span className = "category">{cardInfo.category}</span>     
             </header>  
             <main>
                 <div className = "text">
-                    <h1>City Lights in New York</h1>
-                    <h2>The city that never sleeps.</h2>
-                    <p>New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers</p>        
+                    <h1>{cardInfo.title}</h1>
+                    <h2>{cardInfo.subTitle}</h2>
+                    <p>{cardInfo.description}</p>        
                     <div>
                         <span><i class="fa-solid fa-clock-rotate-left"></i> 6 mins ago</span>  
-                        <span><i class="fa-solid fa-comments"></i> 67 comments</span> 
+                        <span><i class="fa-solid fa-comments"></i>{cardInfo.comments} comments</span> 
                     </div>
                 </div>
             </main> 
         </div>
         ); 
-        ReactDOM.render(card, document.getElementById("root"))
+        ReactDOM.render(card, rootelm)
     </script>
 </body>
 </html>
